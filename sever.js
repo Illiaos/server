@@ -14,6 +14,24 @@ const wss = new WebSocket.Server({ server });
 
 const rooms = [];
 
+
+
+// Update loop variables
+const FRAME_RATE = 60; // Frames per second
+const FRAME_DURATION = 1000 / FRAME_RATE; // Duration of each frame in milliseconds
+
+// Set up the update loop
+setInterval(() => {
+    // This code runs once every FRAME_DURATION milliseconds
+    // You can put server-side update logic here, such as game state updates
+    io.emit('serverUpdate', { timestamp: Date.now() });
+
+    // Example: Broadcast a "heartbeat" message to all connected clients
+    console.log('Server update sent to all clients');
+}, FRAME_DURATION);
+
+
+
 wss.on('connection', function(ws) {
   console.log("client joined.");
 
